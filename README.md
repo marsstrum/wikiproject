@@ -1,3 +1,3 @@
 == README
 
-## wikiproject: An application that allows users to create public and provate Markdown-based wikis.
+## wikiproject: An application that allows users to create public and private Markdown-based wikis.

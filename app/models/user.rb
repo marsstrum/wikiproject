@@ -5,4 +5,19 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :wikis
+
+  after_initialize :defrole
+
+  def defrole
+  	self.role ||= 'standard'
+  end
+
+  def admin?
+  	role == 'admin'
+  end
+
+  def premium?
+  	role == 'premium'
+  end
+
 end

@@ -5,27 +5,31 @@ class WikisController < ApplicationController
   # GET /wikis.json
   def index
     @wikis = Wiki.all
+    authorize @wikis
   end
 
   # GET /wikis/1
   # GET /wikis/1.json
   def show
+    authorize @wiki
   end
 
   # GET /wikis/new
   def new
     @wiki = Wiki.new
+    authorize @wiki
   end
 
   # GET /wikis/1/edit
   def edit
+    authorize @wiki
   end
 
   # POST /wikis
   # POST /wikis.json
   def create
-    #@wiki = Wiki.new(wiki_params)
     @wiki = current_user.wikis.build(wiki_params)
+    authorize @wiki
     respond_to do |format|
       if @wiki.save
         format.html { redirect_to @wiki, notice: 'Wiki was successfully created.' }
@@ -41,6 +45,7 @@ class WikisController < ApplicationController
   # PATCH/PUT /wikis/1.json
   def update
     respond_to do |format|
+      authorize @wiki
       if @wiki.update(wiki_params)
         format.html { redirect_to @wiki, notice: 'Wiki was successfully updated.' }
         format.json { head :no_content }
@@ -55,6 +60,7 @@ class WikisController < ApplicationController
   # DELETE /wikis/1.json
   def destroy
     @wiki.destroy
+    authorize @wiki
     respond_to do |format|
       format.html { redirect_to wikis_url }
       format.json { head :no_content }

@@ -2,9 +2,11 @@
 <div class="jumbotron">
 	<h1 class="center">Welcome to Marswiki</h1>
 	<p class = "center">
-
-			<%= link_to "Sign Up", new_user_registration_path, class: 'btn btn-primary' %> to creat your Wiki's!
-
+		<% if current_user %>
+			<%= link_to "#{current_user.name || current_user.email}'s Wiki's", wikis_path, class: 'btn btn-success' %> 
+		<% else %>
+			<%= link_to "Sign Up", new_user_registration_path, class: 'btn btn-primary' %> to creat and view Wiki's!
+		<% end %>
 	</p>
 </div>
 <div class="row">

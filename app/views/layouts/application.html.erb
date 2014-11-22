@@ -11,6 +11,9 @@
 		<div class="container">
 			<ul class="nav nav-tabs">
 				<li><%= link_to "Home", root_path %></li>
+        <% if current_user %>
+          <li><%= link_to "My Wikis", wikis_path %></li>
+        <% end %>
 				<div class="pull-right user-info">
            <% if current_user %>
              Hello <%=current_user.name || current_user.email %>! <%= link_to "Profile", edit_user_registration_path %> 

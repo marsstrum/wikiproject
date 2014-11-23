@@ -7,12 +7,11 @@ class ApplicationPolicy
   end
 
   def index?
-    user.present?
+    false
   end
 
   def show?
-    #scope.where(:id => record.id).exists? 
-    user.present?
+    scope.where(:id => record.id).exists? 
   end
 
   def create?
@@ -24,7 +23,7 @@ class ApplicationPolicy
   end
 
   def update?
-    create?
+    user.present? && (record.private == false || user.admin?)
   end
 
   def edit?
@@ -32,7 +31,7 @@ class ApplicationPolicy
   end
 
   def destroy?
-    user.present? && (record.user == user || user.admin?)
+    update?
   end
 
   def scope

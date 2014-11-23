@@ -1,37 +1,36 @@
 <div class="container">
   <div class="row"><div class='col-md-2'></div>
     <div class="col-md-8">
-      <h1 class="centerblue"><%= current_user.name || current_user.email %>'s Wiki's</h1>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Edit</th>
-            <th>Delete</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <% @wikis.each do |wiki| %>
-            <tr>
-              <td><%= link_to wiki.title, wiki %></td>
-              <!--<td><%= wiki.body %></td>
-              <td><%= link_to 'Show', wiki %></td>-->
-              <td><%= link_to 'Edit', edit_wiki_path(wiki) %></td>
-              <td><%= link_to 'Destroy', wiki, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-
-      <br>
-
-      <p class="center"><%= link_to 'New Wiki', new_wiki_path, class: 'btn btn-success' %></p>
-      <% if current_user.role != 'premium' %>
-        <h2 class="center">Sign up for a <%= link_to "Premium", new_charge_path %> account</h2>
-      <% else %>
-        <h2 class="center">You are a <strong>Premium</strong> member!</h2>
+      <!--Start table for standard, admin and premium users-->
+      <% if current_user %>
+        <h1 class="centerblue"><%= current_user.name || current_user.email %>'s Wiki's</h1>
       <% end %>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Edit</th>
+                <th>Delete</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @wikis.each do |wiki| %>
+                <tr>
+                  <td><%= link_to wiki.title, wiki %></td>
+                  <td><%= link_to 'Edit', edit_wiki_path(wiki) %></td>
+                  <td><%= link_to 'Destroy', wiki, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+          <br>
+            <% if current_user && current_user.role != 'premium' %>
+              <p class="center"><%= link_to 'New Wiki', new_wiki_path, class: 'btn btn-success' %></p>
+              <h2 class="center">Sign up for a <%= link_to "Premium", new_charge_path %> account</h2>
+            <% elsif current_user && current_user.role == 'premium' %>
+              <h2 class="center">You are a <strong>Premium</strong> member!</h2>
+            <% end %>
     </div>
   </div>
 </div>

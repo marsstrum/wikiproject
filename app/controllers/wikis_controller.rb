@@ -11,7 +11,7 @@ class WikisController < ApplicationController
   # GET /wikis/1
   # GET /wikis/1.json
   def show
-    authorize @wiki
+   authorize @wiki
   end
 
   # GET /wikis/new

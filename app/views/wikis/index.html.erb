@@ -27,6 +27,11 @@
       <br>
 
       <p class="center"><%= link_to 'New Wiki', new_wiki_path, class: 'btn btn-success' %></p>
+      <% if current_user.role != 'premium' %>
+        <h2 class="center">Sign up for a <%= link_to "Premium", new_charge_path %> account</h2>
+      <% else %>
+        <h2 class="center">You are a <strong>Premium</strong> member!</h2>
+      <% end %>
     </div>
   </div>
 </div>

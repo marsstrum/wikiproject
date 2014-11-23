@@ -10,7 +10,7 @@
 
 			<p>
 			  <strong>Body:</strong>
-			  <%= @wiki.body %>
+			  <%= markdown @wiki.body %>
 			</p>
 
 			<%= link_to 'Edit', edit_wiki_path(@wiki) %> |

@@ -1,7 +1,6 @@
 <div class="container">
   <div class="row"><div class='col-md-2'></div>
     <div class="col-md-8">
-      <!--Start table for standard, admin and premium users-->
       <% if current_user %>
         <h1 class="centerblue"><%= current_user.name || current_user.email %>'s Wiki's</h1>
       <% end %>
@@ -25,12 +24,14 @@
             </tbody>
           </table>
           <br>
-            <% if current_user && current_user.role != 'premium' %>
-              <p class="center"><%= link_to 'New Wiki', new_wiki_path, class: 'btn btn-success' %></p>
-              <h2 class="center">Sign up for a <%= link_to "Premium", new_charge_path %> account</h2>
-            <% elsif current_user && current_user.role == 'premium' %>
-              <h2 class="center">You are a <strong>Premium</strong> member!</h2>
-            <% end %>
+          <% if current_user  %>
+            <p class="center"><%= link_to 'New Wiki', new_wiki_path, class: 'btn btn-success' %></p>
+          <% end %>
+          <% if current_user && current_user.role != 'premium' %>
+            <h2 class="center">Sign up for a <%= link_to "Premium", new_charge_path %> account</h2>
+          <% elsif current_user && current_user.role == 'premium' %>
+            <h2 class="center">You are a <strong>Premium</strong> member!</h2>
+          <% end %>
     </div>
   </div>
 </div>

@@ -23,7 +23,8 @@ class ApplicationPolicy
   end
 
   def update?
-    user.present? && (record.private == false || user.admin?)
+    #user.present? && (record.private == false || user.admin?)
+    user.present?
   end
 
   def edit?

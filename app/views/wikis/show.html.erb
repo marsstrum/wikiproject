@@ -12,9 +12,13 @@
 			  <strong>Body:</strong>
 			  <%= markdown @wiki.body %>
 			</p>
-
-			<%= link_to 'Edit', edit_wiki_path(@wiki) %> |
-			<%= link_to 'Back', wikis_path %>
+			<div class="center">
+				<% if current_user && current_user.role?(:premium) %>
+					<%= link_to "Add Collaborator", wiki_collaborators_path(@wiki), class: 'btn btn-success' %>
+				<% end %>
+				<%= link_to 'Edit', edit_wiki_path(@wiki) %> |
+				<%= link_to 'Back', wikis_path %>
+			</div>
 		</div><div class="col-md-1"></div>
 	</div>
 </div>

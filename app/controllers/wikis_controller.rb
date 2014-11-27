@@ -4,10 +4,9 @@ class WikisController < ApplicationController
   # GET /wikis
   # GET /wikis.json
   def index
-   #@wikis = policy_scope(Wiki)
-   @wikis = Wiki.visible_to(current_user)
-   #@wikis = Wiki.all
-    #authorize @wikis
+   @wikis = policy_scope(Wiki)
+   #@users = User.all
+   #@wikis = Wiki.visible_to(current_user)
   end
 
   # GET /wikis/1
@@ -30,7 +29,8 @@ class WikisController < ApplicationController
   # POST /wikis
   # POST /wikis.json
   def create
-    @wiki = current_user.wikis.build(wiki_params)
+    @wiki = Wiki.create(wiki_params)
+    @wiki.user = current_user
     authorize @wiki
     respond_to do |format|
       if @wiki.save

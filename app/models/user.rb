@@ -4,12 +4,17 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :wikis
+  has_many :collaborators
+  has_many :wikis, through: :collaborators
 
-  after_initialize :defrole
+  after_initialize :set_default_role
 
-  def defrole
+  def set_default_role
   	self.role ||= 'standard'
+  end
+
+  def role?(base_role)
+    role == base_role.to_s
   end
 
   def admin?

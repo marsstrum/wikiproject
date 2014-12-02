@@ -1,5 +1,5 @@
 class CollaboratorsController < ApplicationController
-  #before_action :set_collaborator, only: [:show, :edit, :update, :destroy]
+  before_action :set_collaborator, only: [:show, :edit, :update, :destroy]
   before_action :set_wiki
 
   # GET /collaborators
@@ -26,15 +26,17 @@ class CollaboratorsController < ApplicationController
   # POST /collaborators
   # POST /collaborators.json
   def create
-    @collaborator = Collaborator.new(collaborator_params)
+    @collaborator = Collaborator.create(user_id: params[:user_id], wiki_id: params[:wiki_id])
    
-    #respond_to do |format|
+    respond_to do |format|
       if @collaborator.save
+        format.html { redirect_to wiki_collaborators_path, notice: 'Collaborator was successfully created.' }
+        format.json { render action: 'show', status: :created, location: wiki_collaborators_path }
         #format.html { redirect_to @collaborator, notice: 'Collaborator was successfully created.' }
         #format.json { render action: 'show', status: :created, location: @collaborator }
       else
-        #format.html { render action: 'new' }
-        #format.json { render json: @collaborator.errors, status: :unprocessable_entity }
+        format.html { render action: 'new' }
+        format.json { render json: @collaborator.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -58,7 +60,7 @@ class CollaboratorsController < ApplicationController
   def destroy
     @collaborator.destroy
     respond_to do |format|
-      format.html { redirect_to collaborators_url }
+      format.html { redirect_to wiki_collaborators_path(@wiki) }
       format.json { head :no_content }
     end
   end
